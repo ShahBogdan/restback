@@ -36,7 +36,7 @@ module.exports = {
                         date: comment.date
                     });
                 }
-                res.json({ status: "success", message: "Joober comments list found!", data: { comments: commentsList } });
+                res.json({ status: "success", message: "Joober comments list found!", data: { comments: comments } });
             }
         })
     }
