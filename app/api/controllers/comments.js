@@ -27,7 +27,6 @@ module.exports = {
 
                 for (let comment of comments) {
                     commentsList.push({
-                        id:comment._id,
                         jobber_id: jobber_id,
                         comment: comment.comment, 
                         rating: comment.rating , 
