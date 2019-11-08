@@ -1,6 +1,5 @@
 const JobberSchema = require('../models/jobber');
 module.exports = {
-
     create: function (req, res, next) {
         JobberSchema.create({
             first_name: req.body.first_name, 
@@ -32,7 +31,7 @@ module.exports = {
             if (err) {
                 next(err);
             } else {
-                res.json({ status: "success", message: "Movie found!!!", data: { movies: jooberInfo } });
+                res.json({ status: "success", message: "jobberPhone found!!!", data: { movies: jooberInfo } });
             }
         });
     },
@@ -64,7 +63,6 @@ module.exports = {
                         phone: joober.phone
                     });
                 }
-
                 res.json({ status: "success", message: "Joobers list found!", data: { joobers: joobersList } });
             }
         })

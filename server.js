@@ -1,6 +1,7 @@
 const express = require('express');
 const logger = require('morgan');
 const movies = require('./routes/movies');
+const movies = require('./routes/comments');
 const jobber = require('./routes/jobber');
 const users = require('./routes/users');
 const bodyParser = require('body-parser');
@@ -23,7 +24,7 @@ app.use('/users', users);
 // private route
 app.use('/movies', validateUser, movies);
 app.use('/jobber', validateUser, jobber);
-
+app.use('/comments', validateUser, comments);
 app.get('/favicon.ico', function (req, res) {
     res.sendStatus(204);
 });
@@ -37,7 +38,6 @@ function validateUser(req, res, next) {
             next();
         }
     });
-
 }
 // express doesn't consider not found 404 as an error so we need to handle 404 explicitly
 // handle 404 error
