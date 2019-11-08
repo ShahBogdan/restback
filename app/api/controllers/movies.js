@@ -48,7 +48,6 @@ module.exports = {
                 next(err);
             else
                 res.json({ status: "success", message: "Movie added successfully!!!", data: null });
-
         });
     },
 }
