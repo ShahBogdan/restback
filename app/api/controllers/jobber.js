@@ -1,23 +1,49 @@
 const JobberSchema = require('../models/jobber');
+
+
+
+
 module.exports = {
     create: function (req, res, next) {
-        JobberSchema.create({
-            first_name: req.body.first_name, 
-            last_name: req.body.last_name , 
-            second_name: req.body.second_name , 
-            inn: req.body.inn , 
-            birthday: req.body.birthday , 
-            phone: req.body.phone , 
-        }, function (err, result) {
-            if (err)
+
+        JobberSchema.findOne({ inn:req.body.inn }, function (err, jooberInfo) {
+            if (err) {
                 next(err);
-            else
-                res.json({ status: "success", message: "jobber added successfully!!!", data: null });
+            } else {
+                if (!jooberInfo || jooberInfo === null || jooberInfo === [] ) {
+                    JobberSchema.create({
+                        first_name: req.body.first_name,
+                        last_name: req.body.last_name,
+                        second_name: req.body.second_name,
+                        inn: req.body.inn,
+                        birthday: req.body.birthday,
+                        phone: req.body.phone,
+                        city: req.body.city,
+                    }, function (err, result) {
+                        if (err)
+                            next(err);
+                        else
+                            res.json({ status: "success", message: "jobber added successfully!!!", data: jooberInfo });
+                    });
+                } else {
+
+                    res.json({ status: "success", message: "jobber exists!!!",data:req.body.inn,info:jooberInfo });
+
+                }
+            }
         });
+
+
+
+
+
+
     },
+
+
     getByInn: function (req, res, next) {
         console.log(req.body);
-        JobberSchema.find({inn:req.params.jobberInn}, function (err, jooberInfo) {
+        JobberSchema.find({ inn: req.params.jobberInn }, function (err, jooberInfo) {
             if (err) {
                 next(err);
             } else {
@@ -27,7 +53,7 @@ module.exports = {
     },
     getByPhone: function (req, res, next) {
         console.log(req.body);
-        JobberSchema.find({phone:req.params.jobberPhone}, function (err, jooberInfo) {
+        JobberSchema.find({ phone: req.params.jobberPhone }, function (err, jooberInfo) {
             if (err) {
                 next(err);
             } else {
@@ -55,12 +81,13 @@ module.exports = {
                 for (let joober of joobers) {
                     joobersList.push({
                         joober_id: joober._id,
-                        first_name: joober.first_name, 
-                        last_name: joober.last_name , 
-                        second_name: joober.second_name , 
-                        inn: joober.inn , 
-                        birthday: joober.birthday , 
-                        phone: joober.phone
+                        first_name: joober.first_name,
+                        last_name: joober.last_name,
+                        second_name: joober.second_name,
+                        inn: joober.inn,
+                        birthday: joober.birthday,
+                        phone: joober.phone,
+                        city: joober.city,
                     });
                 }
                 res.json({ status: "success", message: "Joobers list found!", data: { joobers: joobersList } });

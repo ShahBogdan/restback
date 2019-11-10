@@ -31,7 +31,12 @@ const JobberSchema = new Schema({
         type: Number,
         trim: true,
         required: true
-    }
+    },
+    city: {
+        type: String,
+        trim: true,
+        required: true,
+    },
 });
 
 module.exports = mongoose.model('Jobber', JobberSchema)

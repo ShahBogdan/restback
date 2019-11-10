@@ -20,7 +20,7 @@ module.exports = {
 
     getAll: function (req, res, next) {
         let commentsList = [];
-        CommentsSchema.find({jobber_id:req.params.jobber_id}, function (err, comments) {
+        CommentsSchema.find({jobber_id:req.params.jobberId}, function (err, comments) {
             if (err) {
                 next(err);
             } else {
@@ -28,7 +28,7 @@ module.exports = {
                 for (let comment of comments) {
                     commentsList.push({
                         id:comment._id,
-                        jobber_id: jobber_id,
+                        jobber_id: comment.jobber_id,
                         comment: comment.comment, 
                         rating: comment.rating , 
                         in_search: comment.in_search , 
